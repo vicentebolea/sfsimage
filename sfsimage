@@ -272,7 +272,8 @@ Aquisition command: $sq_dd"
   echo "$log_start"
   # make the squashfs file with the dd output
   mkdir "$sq_dir"/dummy || exiterror "failed to create $sq_dir/dummy"
-  mksquashfs "$sq_dir"/dummy "$dest" "${sq_opts[@]}" -p "$sq_pseudo (cd \"$sq_dir\"; $sq_dd)" > /dev/null
+  # shellcheck disable=SC2086
+  mksquashfs "$sq_dir"/dummy "$dest" $sq_opts -p "$sq_pseudo (cd \"$sq_dir\"; $sq_dd)" > /dev/null
   rmdir "$sq_dir"/dummy
   sq_finish=$(date +%Y-%m-%dT%H:%M:%S)
 
